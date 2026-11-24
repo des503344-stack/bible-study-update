@@ -264,6 +264,133 @@
         .wiki-suggest-item { padding: 7px 10px; font-size: 9pt; font-weight: 600; color: var(--text-popup); border-radius: 6px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .wiki-suggest-item:hover, .wiki-suggest-item.active { background: var(--accent-blue); color: #fff; }
 
+        /* 노션 스타일 슬래시(/) 명령어 팔레트 */
+        #slash-command-popup {
+            display: none;
+            position: fixed;
+            z-index: 9999999;
+            width: 290px;
+            max-height: 320px;
+            overflow-y: auto;
+            background: var(--bg-popup);
+            border: 1px solid var(--active-pane-border);
+            border-radius: 11px;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.32);
+            padding: 6px;
+            user-select: none;
+        }
+        .slash-header {
+            font-size: 7.4pt;
+            font-weight: 800;
+            color: var(--text-sidebar-muted);
+            padding: 4px 8px 6px 8px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .slash-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 9px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .slash-item:hover, .slash-item.active {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+        .slash-item-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: rgba(148, 163, 184, 0.14);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11pt;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .slash-item:hover .slash-item-icon, .slash-item.active .slash-item-icon {
+            background: rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+        }
+        .slash-item-body {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
+        }
+        .slash-item-title {
+            font-size: 9pt;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+        .slash-item-desc {
+            font-size: 7.4pt;
+            opacity: 0.72;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .slash-item-kbd {
+            font-family: 'Consolas', monospace;
+            font-size: 7.4pt;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 4px;
+            background: rgba(148, 163, 184, 0.16);
+            opacity: 0.85;
+            flex-shrink: 0;
+        }
+        .slash-item:hover .slash-item-kbd, .slash-item.active .slash-item-kbd {
+            background: rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+        }
+        .md-guide-box {
+            background: rgba(59, 130, 246, 0.07);
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            font-size: 8pt;
+            line-height: 1.65;
+            color: var(--text-popup);
+        }
+        .md-guide-box code {
+            font-family: 'Consolas', monospace;
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+        #sv-content details.notion-toggle {
+            border: 1px solid var(--sv-bar-border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 10px 0;
+            background: rgba(148, 163, 184, 0.08);
+        }
+        #sv-content details.notion-toggle summary {
+            font-weight: 700;
+            cursor: pointer;
+        }
+        #sv-content hr {
+            border: none;
+            border-top: 2px solid var(--sv-bar-border);
+            margin: 18px 0;
+        }
+        #sv-content .todo-done {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
         #drag-icon { display: none; position: fixed; width: 40px; height: 40px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); border-radius: 50%; text-align: center; line-height: 40px; box-shadow: 0 6px 16px rgba(245, 158, 11, 0.45); font-size: 18px; cursor: pointer; z-index: 999999 !important; border: 2px solid #ffffff; transition: transform 0.15s; }
         #drag-icon:hover { transform: scale(1.12); }
         
@@ -1346,6 +1473,11 @@
                 입력 대기 중 <strong>ESC</strong>로 취소, <strong>Backspace</strong>로 단축키를 해제할 수 있습니다. (한글/영문 입력 상태 모두 지원)
             </div>
             <div class="shortcut-list" id="shortcuts-list-container"></div>
+            <div class="md-guide-box">
+                <strong>✨ 노션(Notion) 스타일 빠른 원고 입력 단축키 (줄 맨 앞에서 입력 후 스페이스바)</strong><br>
+                <code># </code> 큰 제목(대지) · <code>## </code> 중간 제목(소지) · <code>### </code> 작은 제목(항목) · <code>- </code> 글머리 목록 · <code>1. </code> 번호 목록 · <code>&gt; </code> 인용구 · <code>[] </code> 클릭 체크박스 · <code>---</code>+Enter 구분선<br>
+                <strong>인라인 &amp; 명령어:</strong> <code>/</code> 슬래시 블록 메뉴 · <code>**굵게**</code> · <code>~~취소선~~</code> · <code>==형광펜==</code> · <code>Alt+↑/↓</code> 문단 위아래 이동 · 드래그 후 <code>(</code> <code>"</code> <code>'</code> <code>[</code> 자동 감싸기
+            </div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <button class="prompt-btn prompt-cancel" onclick="resetAllShortcuts()">🔄 기본값 복원</button>
                 <button class="prompt-btn prompt-ok" onclick="closeShortcutsModal()">확인</button>
@@ -1387,6 +1519,7 @@
     </div>
 
     <div id="wiki-suggest-popup"></div>
+    <div id="slash-command-popup"></div>
 
     <div id="file-context-menu">
         <div class="ctx-item" id="ctx-fav" onclick="handleCtxFavorite()">⭐ 즐겨찾기 추가/해제</div>
@@ -1894,6 +2027,7 @@
             if(typeof folderCtxMenu !== 'undefined' && folderCtxMenu) folderCtxMenu.style.display = 'none';
             if(typeof newTabMenu !== 'undefined' && newTabMenu) newTabMenu.style.display = 'none';
             if(typeof wikiSuggestPopup !== 'undefined' && wikiSuggestPopup) wikiSuggestPopup.style.display = 'none';
+            if(typeof closeSlashCommandPopup === 'function') closeSlashCommandPopup();
             const bibleStyleMenu = document.getElementById('bible-style-menu');
             if(bibleStyleMenu) bibleStyleMenu.classList.remove('show');
             if(typeof closeGlobalComboDropdown === 'function') closeGlobalComboDropdown();
@@ -3971,8 +4105,18 @@
             content_style: `
                 html { background-color: ${isDarkMode ? '#090d16' : '#f1f5f9'}; padding: 18px 12px; overflow-x: auto; }
                 body { font-family: ${editorUserPrefs.fontFamily}; font-size: ${editorUserPrefs.fontSize}; line-height: 1.75; background: ${isDarkMode ? '#141c2b' : '#ffffff'}; color: ${isDarkMode ? '#f1f5f9' : '#0f172a'}; margin: 0 auto; width: 210mm; min-width: 210mm; min-height: 297mm; box-sizing: border-box; box-shadow: 0 6px 24px rgba(0,0,0,0.12); padding: 25.4mm; }
+                h1 { font-size: 1.85em; font-weight: 800; margin: 0.7em 0 0.35em 0; line-height: 1.3; }
+                h2 { font-size: 1.45em; font-weight: 700; margin: 0.65em 0 0.3em 0; line-height: 1.35; }
+                h3 { font-size: 1.2em; font-weight: 700; margin: 0.55em 0 0.25em 0; line-height: 1.4; }
+                blockquote { border-left: 4px solid #3b82f6; margin: 10px 0; padding: 8px 14px; background: rgba(59, 130, 246, 0.06); border-radius: 0 6px 6px 0; }
+                hr { border: none; border-top: 2px solid rgba(148, 163, 184, 0.4); margin: 16px 0; }
                 span[style*="background-color"], mark { color: #0f172a; padding: 1px 3px; border-radius: 3px; }
                 .wiki-link { background: rgba(139, 92, 246, 0.14); color: #6d28d9; font-weight: 700; padding: 1px 6px; border-radius: 5px; cursor: pointer; border-bottom: 1px dashed #8b5cf6; }
+                .todo-check { cursor: pointer; user-select: none; font-size: 1.15em; margin-right: 4px; color: #3b82f6; font-weight: 700; }
+                .todo-done { text-decoration: line-through; opacity: 0.58; }
+                .inline-code { font-family: 'Consolas', monospace; background: rgba(148, 163, 184, 0.2); color: #e11d48; padding: 1px 5px; border-radius: 4px; font-size: 0.92em; }
+                details.notion-toggle { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 8px; padding: 8px 14px; margin: 10px 0; background: rgba(148, 163, 184, 0.06); }
+                details.notion-toggle summary { font-weight: 700; cursor: pointer; outline: none; }
             `
         };
 
@@ -4200,6 +4344,7 @@
                     if (folderCtxMenu) folderCtxMenu.style.display = 'none';
                     newTabMenu.style.display = 'none';
                     closeGlobalComboDropdown();
+                    closeSlashCommandPopup();
                     const bsm = document.getElementById('bible-style-menu');
                     if (bsm) bsm.classList.remove('show');
                 });
@@ -4209,9 +4354,16 @@
                     if (folderCtxMenu) folderCtxMenu.style.display = 'none';
                     newTabMenu.style.display = 'none';
                     closeGlobalComboDropdown();
+                    closeSlashCommandPopup();
                     const bsm = document.getElementById('bible-style-menu');
                     if (bsm) bsm.classList.remove('show');
                     const targetEl = (e && e.target && typeof e.target.closest === 'function') ? e.target : null;
+                    const todoCheck = targetEl ? targetEl.closest('.todo-check') : null;
+                    if (todoCheck) {
+                        e.preventDefault();
+                        toggleInlineTodoCheckbox(ed, todoCheck, i);
+                        return;
+                    }
                     const bibleLink = targetEl ? targetEl.closest('.bible-link') : null;
                     const wikiLink = targetEl ? targetEl.closest('.wiki-link') : null;
                     if (bibleLink) {
@@ -4249,12 +4401,17 @@
                 });
                 ed.on('keyup input SetContent ExecCommand', (e) => {
                     if (!document.getElementById('right-hub-panel').classList.contains('collapsed')) { if (currentRightHubMode === 'highlights') refreshHighlightsHub(); else if (currentRightHubMode === 'outline') refreshOutlineHub(); }
-                    if (e && e.type === 'keyup') checkWikiBracketAutocomplete(ed, e);
+                    if (e && e.type === 'keyup') {
+                        checkWikiBracketAutocomplete(ed, e);
+                        checkSlashCommandAutocomplete(ed, e);
+                    }
                     if (i === activePane) updateStatusBar();
                 });
                 
                 ed.on('keydown', async function(e) {
+                    if (handleSlashCommandKeydown(ed, e)) return;
                     if (await handleGlobalShortcut(e, true)) return;
+                    if (handleNotionEditorKeydown(ed, e, i)) return;
                     
                     if (e.key === 'Tab') {
                         e.preventDefault(); 
@@ -4757,6 +4914,484 @@
                 refreshBacklinksHub();
             }
             showToast(`🔗 [[${cleanTarget}]] 링크 연결됨.`);
+        }
+
+
+        // =========================================================================
+        // ✨ 노션(Notion) · 옵시디언 스타일 스마트 원고 작성 엔진
+        //    (# / ## / ### / - / 1. / > / [] / --- / 인라인 서식 / 슬래시 '/' 메뉴 / Alt+↑↓ 문단 이동 / 자동 감싸기)
+        // =========================================================================
+        const slashPopupEl = document.getElementById('slash-command-popup');
+        const slashState = {
+            open: false,
+            ed: null,
+            items: [],
+            activeIndex: 0,
+            matchLen: 0,
+            textNode: null,
+            endOffset: 0
+        };
+
+        function getFormattedKoreanToday() {
+            const now = new Date();
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            return `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
+        }
+
+        const SLASH_COMMANDS = [
+            {
+                id: 'h1', icon: 'H1', title: '제목 1 (큰 제목 · 대지)', desc: '설교 대지나 장 제목 (# + 스페이스)', kbd: '# ',
+                keywords: 'h1 제목 큰제목 대지 heading 1 ㅈㅁ',
+                run: (ed) => ed.execCommand('FormatBlock', false, 'h1')
+            },
+            {
+                id: 'h2', icon: 'H2', title: '제목 2 (중간 제목 · 소지)', desc: '소제목 및 본론 구분 (## + 스페이스)', kbd: '## ',
+                keywords: 'h2 제목 중간제목 소지 heading 2 ㅈㅁ',
+                run: (ed) => ed.execCommand('FormatBlock', false, 'h2')
+            },
+            {
+                id: 'h3', icon: 'H3', title: '제목 3 (작은 제목 · 항목)', desc: '세부 항목 제목 (### + 스페이스)', kbd: '### ',
+                keywords: 'h3 제목 작은제목 항목 heading 3 ㅈㅁ',
+                run: (ed) => ed.execCommand('FormatBlock', false, 'h3')
+            },
+            {
+                id: 'p', icon: 'T', title: '본문 텍스트', desc: '일반 본문 문단으로 전환', kbd: 'P',
+                keywords: 'p 본문 텍스트 일반 문단 text paragraph',
+                run: (ed) => ed.execCommand('FormatBlock', false, 'p')
+            },
+            {
+                id: 'ul', icon: '•', title: '글머리 기호 목록', desc: '점으로 구분된 목록 (- + 스페이스)', kbd: '- ',
+                keywords: '목록 리스트 글머리 점 bullet ul list',
+                run: (ed) => ed.execCommand('InsertUnorderedList')
+            },
+            {
+                id: 'ol', icon: '1.', title: '번호 매기기 목록', desc: '순서대로 번호가 붙는 목록 (1. + 스페이스)', kbd: '1. ',
+                keywords: '번호 목록 순서 숫자 ol number list',
+                run: (ed) => ed.execCommand('InsertOrderedList')
+            },
+            {
+                id: 'todo', icon: '☑️', title: '할 일 체크박스', desc: '클릭해서 완료 표시하는 체크박스 ([] + 스페이스)', kbd: '[] ',
+                keywords: '체크박스 할일 투두 todo check checkbox 점검',
+                run: (ed) => ed.insertContent('<span class="todo-check" contenteditable="false" data-checked="0">☐</span>&nbsp;')
+            },
+            {
+                id: 'quote', icon: '❝', title: '인용구 블록', desc: '성경 인용이나 강조 문구 (> + 스페이스)', kbd: '> ',
+                keywords: '인용 인용구 quote blockquote 말씀',
+                run: (ed) => ed.execCommand('mceBlockQuote')
+            },
+            {
+                id: 'toggle', icon: '▸', title: '접기/펼치기 토글 블록', desc: '긴 주석·예화·메모를 접어두는 노션 토글', kbd: '토글',
+                keywords: '토글 접기 펼치기 숨기기 toggle details 메모',
+                run: (ed) => ed.insertContent('<details class="notion-toggle" open><summary>토글 제목을 입력하세요</summary><p>여기에 접어둘 주석이나 예화를 입력하세요.</p></details><p><br></p>')
+            },
+            {
+                id: 'hr', icon: '―', title: '구분선', desc: '단락을 시각적으로 분리 (--- + Enter)', kbd: '---',
+                keywords: '구분선 가로선 선 divider hr line',
+                run: (ed) => ed.insertContent('<hr /><p><br></p>')
+            },
+            {
+                id: 'callout-summary', icon: '💡', title: '핵심 요약 박스', desc: '파란색 강조 핵심 요약 콜아웃', kbd: '박스',
+                keywords: '박스 콜아웃 요약 핵심 callout summary',
+                run: (ed) => ed.insertContent('<div style="border-left:4px solid #3b82f6; background:rgba(59,130,246,0.08); padding:12px 15px; margin:12px 0; border-radius:0 8px 8px 0;"><strong>💡 핵심 요약</strong><br>내용을 입력하세요.</div><p><br></p>')
+            },
+            {
+                id: 'callout-story', icon: '📖', title: '예화 / 간증 박스', desc: '금색 강조 예화·간증 콜아웃', kbd: '예화',
+                keywords: '예화 간증 박스 스토리 story illustration',
+                run: (ed) => ed.insertContent('<div style="border-left:4px solid #f59e0b; background:rgba(245,158,11,0.10); padding:12px 15px; margin:12px 0; border-radius:0 8px 8px 0;"><strong>📖 예화 / 간증</strong><br>예화 내용을 입력하세요.</div><p><br></p>')
+            },
+            {
+                id: 'callout-apply', icon: '🙏', title: '적용 / 결단 박스', desc: '초록색 강조 삶에 적용 콜아웃', kbd: '적용',
+                keywords: '적용 결단 기도 박스 apply application',
+                run: (ed) => ed.insertContent('<div style="border-left:4px solid #10b981; background:rgba(16,185,129,0.10); padding:12px 15px; margin:12px 0; border-radius:0 8px 8px 0;"><strong>🙏 삶에 적용하기</strong><br>적용 포인트를 입력하세요.</div><p><br></p>')
+            },
+            {
+                id: 'sermon-template', icon: '📋', title: '설교 원고 기본 뼈대', desc: '제목·본문·서론·본론(1~3)·결론 템플릿 즉시 삽입', kbd: '템플릿',
+                keywords: '설교 뼈대 템플릿 양식 서론 본론 결론 template sermon',
+                run: (ed) => ed.insertContent(
+                    `<h1>설교 제목을 입력하세요</h1>` +
+                    `<p><strong>본문:</strong> (약어 입력 후 Tab) · <strong>날짜:</strong> ${getFormattedKoreanToday()}</p>` +
+                    `<hr />` +
+                    `<h2>서론</h2><p><br></p>` +
+                    `<h2>본론</h2>` +
+                    `<h3>1. 첫 번째 대지</h3><p><br></p>` +
+                    `<h3>2. 두 번째 대지</h3><p><br></p>` +
+                    `<h3>3. 세 번째 대지</h3><p><br></p>` +
+                    `<h2>결론 및 적용</h2><p><br></p>`
+                )
+            },
+            {
+                id: 'date', icon: '📅', title: '오늘 날짜 삽입', desc: getFormattedKoreanToday(), kbd: '날짜',
+                keywords: '날짜 오늘 date today 시간',
+                run: (ed) => ed.insertContent(`${getFormattedKoreanToday()} `)
+            },
+            {
+                id: 'wikilink', icon: '🔗', title: '양방향 링크 ([[링크]])', desc: '다른 원고나 주제어와 연결', kbd: '[[',
+                keywords: '링크 연결 역링크 위키 link wiki',
+                run: () => insertWikiLinkBracket()
+            },
+            {
+                id: 'table', icon: '📊', title: '표 삽입 (3×3)', desc: '3행 3열 기본 표 삽입', kbd: '표',
+                keywords: '표 테이블 table grid',
+                run: (ed) => ed.insertContent('<table style="border-collapse:collapse; width:100%;" border="1"><thead><tr><th>항목 1</th><th>항목 2</th><th>항목 3</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><br></p>')
+            }
+        ];
+
+        function closeSlashCommandPopup() {
+            if (slashPopupEl) slashPopupEl.style.display = 'none';
+            slashState.open = false;
+            slashState.ed = null;
+            slashState.items = [];
+            slashState.activeIndex = 0;
+        }
+
+        function executeSlashCommand(idx) {
+            const cmd = slashState.items[idx];
+            const ed = slashState.ed;
+            if (!cmd || !ed) { closeSlashCommandPopup(); return; }
+            try {
+                if (slashState.textNode && slashState.textNode.parentNode) {
+                    const startOff = Math.max(0, slashState.endOffset - slashState.matchLen);
+                    const delRng = ed.dom.createRng();
+                    delRng.setStart(slashState.textNode, startOff);
+                    delRng.setEnd(slashState.textNode, slashState.endOffset);
+                    ed.selection.setRng(delRng);
+                    delRng.deleteContents();
+                }
+            } catch (err) {}
+            closeSlashCommandPopup();
+            ed.focus();
+            ed.undoManager.transact(() => {
+                cmd.run(ed);
+            });
+            if (!document.getElementById('right-hub-panel').classList.contains('collapsed') && currentRightHubMode === 'outline') {
+                refreshOutlineHub();
+            }
+        }
+
+        function renderSlashCommandPopup(ed, rect) {
+            if (!slashPopupEl) return;
+            slashPopupEl.innerHTML = `<div class="slash-header"><span>⚡ 빠른 블록 삽입</span><span>↑↓ 이동 · Enter 선택</span></div>`;
+            slashState.items.forEach((cmd, idx) => {
+                const row = document.createElement('div');
+                row.className = `slash-item ${idx === slashState.activeIndex ? 'active' : ''}`;
+                row.innerHTML = `
+                    <span class="slash-item-icon">${cmd.icon}</span>
+                    <div class="slash-item-body">
+                        <span class="slash-item-title">${escapeAttr(cmd.title)}</span>
+                        <span class="slash-item-desc">${escapeAttr(cmd.desc)}</span>
+                    </div>
+                    <span class="slash-item-kbd">${escapeAttr(cmd.kbd)}</span>
+                `;
+                row.onmousedown = (ev) => { ev.preventDefault(); ev.stopPropagation(); };
+                row.onclick = (ev) => {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    executeSlashCommand(idx);
+                };
+                slashPopupEl.appendChild(row);
+            });
+
+            if (rect) {
+                const iframeEl = ed.getContentAreaContainer()?.querySelector('iframe');
+                const iframeRect = iframeEl ? iframeEl.getBoundingClientRect() : { left: 0, top: 0 };
+                const absLeft = iframeRect.left + rect.left;
+                const absBottom = iframeRect.top + rect.bottom;
+                const absTop = iframeRect.top + rect.top;
+                const popW = 290;
+                const popH = 320;
+                const leftPos = Math.min(window.innerWidth - popW - 10, Math.max(10, absLeft));
+                const openUp = (window.innerHeight - absBottom < 220) && (absTop > 220);
+
+                slashPopupEl.style.left = `${leftPos}px`;
+                if (openUp) {
+                    slashPopupEl.style.top = 'auto';
+                    slashPopupEl.style.bottom = `${window.innerHeight - absTop + 6}px`;
+                } else {
+                    slashPopupEl.style.bottom = 'auto';
+                    slashPopupEl.style.top = `${Math.min(window.innerHeight - popH - 10, absBottom + 6)}px`;
+                }
+            }
+            slashPopupEl.style.display = 'block';
+            const activeEl = slashPopupEl.querySelector('.slash-item.active');
+            if (activeEl) activeEl.scrollIntoView({ block: 'nearest' });
+        }
+
+        function checkSlashCommandAutocomplete(ed, e) {
+            if (!e || ['ArrowUp', 'ArrowDown', 'Enter', 'Escape'].includes(e.key)) return;
+            const rng = ed.selection.getRng();
+            if (!rng || !rng.collapsed || rng.startContainer.nodeType !== 3) {
+                closeSlashCommandPopup();
+                return;
+            }
+            const textBefore = rng.startContainer.textContent.slice(0, rng.startOffset);
+            const match = textBefore.match(/(?:^|[\s\u00A0])(\/([^\s\/]{0,20}))$/);
+            if (!match) {
+                closeSlashCommandPopup();
+                return;
+            }
+            const slashToken = match[1];
+            const query = (match[2] || '').trim().toLowerCase();
+            const filtered = query
+                ? SLASH_COMMANDS.filter(c =>
+                    c.title.toLowerCase().includes(query) ||
+                    c.desc.toLowerCase().includes(query) ||
+                    c.keywords.toLowerCase().includes(query)
+                )
+                : SLASH_COMMANDS;
+
+            if (filtered.length === 0) {
+                closeSlashCommandPopup();
+                return;
+            }
+            slashState.open = true;
+            slashState.ed = ed;
+            slashState.items = filtered;
+            slashState.activeIndex = 0;
+            slashState.matchLen = slashToken.length;
+            slashState.textNode = rng.startContainer;
+            slashState.endOffset = rng.startOffset;
+            renderSlashCommandPopup(ed, rng.getBoundingClientRect());
+        }
+
+        function handleSlashCommandKeydown(ed, e) {
+            if (!slashState.open || slashState.ed !== ed) return false;
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                e.stopPropagation();
+                slashState.activeIndex = (slashState.activeIndex + 1) % slashState.items.length;
+                renderSlashCommandPopup(ed, null);
+                return true;
+            }
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                e.stopPropagation();
+                slashState.activeIndex = (slashState.activeIndex - 1 + slashState.items.length) % slashState.items.length;
+                renderSlashCommandPopup(ed, null);
+                return true;
+            }
+            if (e.key === 'Enter' || e.key === 'Tab') {
+                e.preventDefault();
+                e.stopPropagation();
+                executeSlashCommand(slashState.activeIndex);
+                return true;
+            }
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                closeSlashCommandPopup();
+                return true;
+            }
+            return false;
+        }
+
+        function toggleInlineTodoCheckbox(ed, checkboxEl, paneNum) {
+            const isChecked = checkboxEl.getAttribute('data-checked') === '1';
+            const nextChecked = !isChecked;
+            checkboxEl.setAttribute('data-checked', nextChecked ? '1' : '0');
+            checkboxEl.textContent = nextChecked ? '☑' : '☐';
+            const block = checkboxEl.closest('p, li, div');
+            if (block) block.classList.toggle('todo-done', nextChecked);
+            ed.undoManager.add();
+            const curTab = openTabs[paneNum]?.find(t => t.id === activeTabId[paneNum]);
+            if (curTab && curTab.type !== 'bible-viewer') {
+                curTab.isDirty = true;
+                renderTabs(paneNum);
+                scheduleAutoSaveForPane(paneNum);
+            }
+        }
+
+        function getBlockTextBeforeCaret(ed, blockEl, rng) {
+            try {
+                const preRng = ed.dom.createRng();
+                preRng.setStart(blockEl, 0);
+                preRng.setEnd(rng.startContainer, rng.startOffset);
+                return preRng.toString().replace(/\uFEFF/g, '').replace(/\u00A0/g, ' ');
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function deleteBlockPrefixToCaret(ed, blockEl, rng) {
+            const delRng = ed.dom.createRng();
+            delRng.setStart(blockEl, 0);
+            delRng.setEnd(rng.startContainer, rng.startOffset);
+            delRng.deleteContents();
+            ed.selection.setRng(delRng);
+        }
+
+        function moveCurrentBlock(ed, direction) {
+            const body = ed.getBody();
+            if (!body) return false;
+            const node = ed.selection.getNode();
+            if (!node) return false;
+            let block = node.closest ? node.closest('li, p, h1, h2, h3, h4, h5, h6, blockquote, details, hr, div') : null;
+            if (!block || block === body) return false;
+            // 최상위 블록 또는 리스트 항목(li) 기준으로 이동
+            while (block.parentNode && block.parentNode !== body && block.tagName !== 'LI') {
+                block = block.parentNode;
+            }
+            const parent = block.parentNode;
+            if (!parent) return false;
+            const sibling = direction < 0 ? block.previousElementSibling : block.nextElementSibling;
+            if (!sibling) return true;
+
+            ed.undoManager.transact(() => {
+                if (direction < 0) {
+                    parent.insertBefore(block, sibling);
+                } else {
+                    parent.insertBefore(sibling, block);
+                }
+            });
+            ed.selection.select(block, true);
+            ed.selection.collapse(false);
+            block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            return true;
+        }
+
+        function handleNotionEditorKeydown(ed, e, paneNum) {
+            if (e.isComposing || e.keyCode === 229) return false;
+
+            // 1. Alt + ↑ / ↓ : 현재 문단/대지를 위아래로 빠르게 이동
+            if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+                e.preventDefault();
+                e.stopPropagation();
+                moveCurrentBlock(ed, e.key === 'ArrowUp' ? -1 : 1);
+                if (!document.getElementById('right-hub-panel').classList.contains('collapsed') && currentRightHubMode === 'outline') {
+                    refreshOutlineHub();
+                }
+                return true;
+            }
+
+            // 2. 드래그한 텍스트를 괄호/따옴표로 자동 감싸기 (Auto-pair)
+            const pairMap = { '(': ')', '[': ']', '"': '"', "'": "'" };
+            if (!e.ctrlKey && !e.altKey && !e.metaKey && pairMap[e.key]) {
+                const rng = ed.selection.getRng();
+                if (rng && !rng.collapsed) {
+                    const selText = ed.selection.getContent({ format: 'text' });
+                    if (selText && selText.length > 0 && selText.length < 500) {
+                        e.preventDefault();
+                        const closeChar = pairMap[e.key];
+                        ed.insertContent(`${escapeAttr(e.key)}${escapeAttr(selText)}${escapeAttr(closeChar)}`);
+                        return true;
+                    }
+                }
+            }
+
+            const rng = ed.selection.getRng();
+            if (!rng || !rng.collapsed) return false;
+
+            // 3. Space 키: 노션 스타일 마크다운 블록 변환 (#, ##, ###, -, *, 1., >, []) + 인라인 서식 (**, ~~, ==, ``)
+            if (e.key === ' ' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                const block = ed.dom.getParent(rng.startContainer, 'p,div,h1,h2,h3,h4,h5,h6,li,blockquote');
+                if (block && block !== ed.getBody()) {
+                    const prefix = getBlockTextBeforeCaret(ed, block, rng);
+
+                    // (A) 제목 1 / 2 / 3 (# / ## / ###)
+                    if (prefix === '#' || prefix === '##' || prefix === '###') {
+                        e.preventDefault();
+                        const tag = prefix === '#' ? 'h1' : (prefix === '##' ? 'h2' : 'h3');
+                        ed.undoManager.transact(() => {
+                            deleteBlockPrefixToCaret(ed, block, rng);
+                            ed.execCommand('FormatBlock', false, tag);
+                        });
+                        if (!document.getElementById('right-hub-panel').classList.contains('collapsed') && currentRightHubMode === 'outline') {
+                            refreshOutlineHub();
+                        }
+                        return true;
+                    }
+
+                    // (B) 글머리 기호 목록 (- 또는 *)
+                    if ((prefix === '-' || prefix === '*') && block.tagName !== 'LI') {
+                        e.preventDefault();
+                        ed.undoManager.transact(() => {
+                            deleteBlockPrefixToCaret(ed, block, rng);
+                            ed.execCommand('InsertUnorderedList');
+                        });
+                        return true;
+                    }
+
+                    // (C) 번호 매기기 목록 (1.)
+                    if (prefix === '1.' && block.tagName !== 'LI') {
+                        e.preventDefault();
+                        ed.undoManager.transact(() => {
+                            deleteBlockPrefixToCaret(ed, block, rng);
+                            ed.execCommand('InsertOrderedList');
+                        });
+                        return true;
+                    }
+
+                    // (D) 인용구 블록 (>)
+                    if (prefix === '>' && block.tagName !== 'BLOCKQUOTE') {
+                        e.preventDefault();
+                        ed.undoManager.transact(() => {
+                            deleteBlockPrefixToCaret(ed, block, rng);
+                            ed.execCommand('mceBlockQuote');
+                        });
+                        return true;
+                    }
+
+                    // (E) 할 일 체크박스 ([] 또는 [ ])
+                    if (prefix === '[]' || prefix === '[ ]') {
+                        e.preventDefault();
+                        ed.undoManager.transact(() => {
+                            deleteBlockPrefixToCaret(ed, block, rng);
+                            ed.insertContent('<span class="todo-check" contenteditable="false" data-checked="0">☐</span>&nbsp;');
+                        });
+                        return true;
+                    }
+                }
+
+                // (F) 인라인 마크다운 자동 변환 (**굵게**, ~~취소선~~, ==형광펜==, `코드`)
+                if (rng.startContainer.nodeType === 3) {
+                    const textBefore = rng.startContainer.textContent.slice(0, rng.startOffset);
+                    const inlinePatterns = [
+                        { re: /\*\*([^*\n]+)\*\*$/, wrap: (t) => `<strong>${escapeAttr(t)}</strong>&nbsp;` },
+                        { re: /~~([^~\n]+)~~$/, wrap: (t) => `<s>${escapeAttr(t)}</s>&nbsp;` },
+                        { re: /==([^=\n]+)==$/, wrap: (t) => `<span style="background-color: ${lastSelectedPastelHex || '#FEF08A'};">${escapeAttr(t)}</span>&nbsp;` },
+                        { re: /`([^`\n]+)`$/, wrap: (t) => `<code class="inline-code">${escapeAttr(t)}</code>&nbsp;` }
+                    ];
+                    for (const pat of inlinePatterns) {
+                        const m = textBefore.match(pat.re);
+                        if (m && m[1].trim()) {
+                            e.preventDefault();
+                            ed.undoManager.transact(() => {
+                                const repRng = ed.dom.createRng();
+                                repRng.setStart(rng.startContainer, rng.startOffset - m[0].length);
+                                repRng.setEnd(rng.startContainer, rng.startOffset);
+                                ed.selection.setRng(repRng);
+                                ed.insertContent(pat.wrap(m[1]));
+                            });
+                            if (!document.getElementById('right-hub-panel').classList.contains('collapsed') && currentRightHubMode === 'highlights') {
+                                refreshHighlightsHub();
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            // 4. Enter 키: --- 또는 *** 입력 후 Enter 시 깔끔한 구분선(<hr>) 자동 삽입
+            if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                const block = ed.dom.getParent(rng.startContainer, 'p,div');
+                if (block && block !== ed.getBody()) {
+                    const fullText = (block.textContent || '').replace(/\uFEFF/g, '').trim();
+                    if (fullText === '---' || fullText === '***') {
+                        e.preventDefault();
+                        ed.undoManager.transact(() => {
+                            const hr = ed.getDoc().createElement('hr');
+                            const nextP = ed.getDoc().createElement('p');
+                            nextP.innerHTML = '<br>';
+                            block.parentNode.insertBefore(hr, block);
+                            block.parentNode.insertBefore(nextP, block);
+                            block.parentNode.removeChild(block);
+                            ed.selection.setCursorLocation(nextP, 0);
+                        });
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         async function checkWikiBracketAutocomplete(ed, e) {
